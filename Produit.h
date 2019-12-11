@@ -3,8 +3,8 @@
 //
 #include <iostream>
 
-#ifndef ITC313_TP2_PRODUIT_H
-#define ITC313_TP2_PRODUIT_H
+#ifndef EASYSHOP_PRODUIT_H
+#define EASYSHOP_PRODUIT_H
 
 using namespace std;
 class Produit {
@@ -32,4 +32,4 @@ class Produit {
 
 
 
-#endif //ITC313_TP2_PRODUIT_H
+#endif //EASYSHOP_PRODUIT_H

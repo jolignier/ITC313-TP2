@@ -6,13 +6,19 @@ project(EasyShop)
 
 # Crée des variables avec les fichiers à compiler
 set(SRCS
-        Produit.cpp
         main.cpp
-        )
+        Produit.cpp
+        Magasin.cpp
+        Client.cpp
+        Commande.cpp
+    )
 
 set(HEADERS
         Produit.h
-        )
+        Magasin.h
+        Client.h
+        Commande.h
+    )
 
 # On indique que l'on veut un exécutable "hello" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
 add_executable(EasyShop ${SRCS} ${HEADERS})

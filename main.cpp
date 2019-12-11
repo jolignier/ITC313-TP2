@@ -12,4 +12,6 @@ int main(){
     Produit p("Titre", "Description", 12, 59.99);
     cout << p << endl;
     return 0;
+
+
 }
