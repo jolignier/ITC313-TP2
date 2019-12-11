@@ -17,9 +17,10 @@ class Client
 {
 	public :
 		Client ();
-		Client(string nom, string prenom,vector<Produit*> panier);
+		Client(int id,string nom, string prenom,vector<Produit*> panier);
 
 		vector<Produit*> getPanier();
+		int getId();
 		string getNom();
 		string getPrenom();
 
@@ -32,6 +33,7 @@ class Client
 
 
 	private :
+        int m_id;
 		string m_nom;
 		string m_prenom ;
 		vector<Produit*> m_panier;

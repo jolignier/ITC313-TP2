@@ -9,14 +9,18 @@
 
 using namespace  std;
 
-Client::Client(string nom, string prenom, vector<Produit*> panier){
-	m_nom = nom;
-	m_prenom = prenom;
-	m_panier = panier;
+Client::Client(int id, string nom, string prenom, vector<Produit*> panier){
+	this->m_id = id;
+    this->m_nom = nom;
+    this->m_prenom = prenom;
+    this->m_panier = panier;
 }
 
 vector<Produit*> Client::getPanier(){
 	return m_panier;
+}
+int Client::getId(){
+    return m_id;
 }
 string Client::getNom(){
 	return m_nom;
