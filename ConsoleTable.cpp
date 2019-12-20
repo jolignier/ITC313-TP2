@@ -12,6 +12,10 @@ void ConsoleTable::setPadding(unsigned int n) {
     padding = n;
 }
 
+void ConsoleTable::setTitle(std::string t) {
+    title = t;
+}
+
 
 void ConsoleTable::setStyle(unsigned int n) {
     switch (n) {
@@ -87,6 +91,18 @@ std::string ConsoleTable::getLine(RowType rowType) const {
     return line.str() + "\n";
 }
 
+std::string ConsoleTable::getTitle(std::string title) const {
+    std::stringstream line;
+    std::size_t totalWidth = widths[0];
+    for (unsigned int i=1; i <= widths.size(); i++){
+        totalWidth += widths[i];
+    }
+    line << style.vertical;
+    line << SPACE_CHARACTER * padding + title + SPACE_CHARACTER * (totalWidth - title.length() + 2*padding*widths.size() ) + SPACE_CHARACTER * padding;
+    line << SPACE_CHARACTER * (widths.size()-3) << style.vertical;
+    line << "\n";
+    return line.str();
+}
 
 std::string ConsoleTable::getHeaders(Headers headers) const {
     std::stringstream line;
@@ -118,6 +134,8 @@ std::string ConsoleTable::getRows(Rows rows) const {
 
 
 std::ostream &operator<<(std::ostream &out, const ConsoleTable &consoleTable) {
+    out << consoleTable.getLine(consoleTable.style.title);
+    out << consoleTable.getTitle(consoleTable.title);
     out << consoleTable.getLine(consoleTable.style.top);
     out << consoleTable.getHeaders(consoleTable.headers);
     out << consoleTable.getLine(consoleTable.style.middle);

@@ -25,6 +25,11 @@ public:
     void setPadding(unsigned int n);
 
 
+    /// Sets the title of the table
+    /// \param title New title of the table
+    void setTitle(std::string t);
+
+
     /// Sets the style of the table, default is 0
     /// n = 0 : Basic table style
     /// n = 1 : Single lined table style
@@ -78,6 +83,8 @@ public:
 
 
 private:
+    /// Holds the title string of the table
+    std::string title;
 
     /// Holds all header strings of the table
     Headers headers;
@@ -97,30 +104,31 @@ private:
         std::string right;
     };
 
-    /// Defines table style rows (top, middle, bottom etc)
+    /// Defines table style rows (title, top, middle, bottom etc)
     struct TableStyle {
         std::string horizontal;
         std::string vertical;
         RowType top;
+        RowType title;
         RowType middle;
         RowType bottom;
     };
 
 
     /// Basic style - works on all systems, used as default style
-    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "+", "+"}, {"+", "+", "+"}};
+    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "+", "+"}};
 
 
     /// Single lined style - requires speecial character support
-    TableStyle LineStyle = {"━", "┃", {"┏", "┳", "┓"}, {"┣", "╋", "┫"}, {"┗", "┻", "┛"}};
+    TableStyle LineStyle = {"━", "┃", {"┏", "┳", "┓"}, {"┏", "━", "┓"}, {"┣", "╋", "┫"}, {"┗", "┻", "┛"}};
 
 
     /// Single double style - requires speecial character support
-    TableStyle DoubleLineStyle = {"═", "║", {"╔", "╦", "╗"}, {"╠", "╬", "╣"}, {"╚", "╩", "╝"}};
+    TableStyle DoubleLineStyle = {"═", "║", {"╔", "╦", "╗"}, {"╔", "═", "╗"}, {"╠", "╬", "╣"}, {"╚", "╩", "╝"}};
 
 
     /// No visible table outlines - works on all systems
-    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
+    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
 
 
     /// Current table style
@@ -145,6 +153,11 @@ private:
     /// \param headers The Headers-object that holds the header strings
     /// \return The formatted header string
     std::string getHeaders(Headers headers) const;
+
+    /// Returns a formatted title string
+    /// \param title The title string
+    /// \return The formatted title string
+    std::string getTitle(std::string title) const;
 
 
     /// Returns a formmatted row string

@@ -22,5 +22,5 @@ set(HEADERS
         ConsoleTable.h
     )
 
-# On indique que l'on veut un exécutable "hello" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
+# On indique que l'on veut un exécutable "EasyShop" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
 add_executable(EasyShop ${SRCS} ${HEADERS})

@@ -3,9 +3,11 @@
 //
 #include "Client.h"
 #include "Produit.h"
+#include "ConsoleTable.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 using namespace  std;
 
@@ -50,5 +52,20 @@ void Client::supprimerProduit(Produit* p) {
 }
 
 ostream&operator<< (ostream&output, Client client){
-    output << client.getNom() << "" << endl;
+    ConsoleTable table{"Nom","Description", "Quantite", "Prix Unitaire"};
+    table.setTitle("Panier du client #"+ to_string(client.getId()) + " : "+ client.getPrenom() + " " + client.getNom());
+    table.setStyle(1);
+    for (int i = 0; i < client.getPanier().size(); ++i) {
+        string nom = client.getPanier().at(i)->getTitre() ;
+        string description = client.getPanier().at(i)->getDescription();
+        string quantite = to_string(client.getPanier().at(i)->getQuantite());
+
+        stringstream stream;
+        stream << fixed << setprecision(2) << "$ " << client.getPanier().at(i)->getPrixUnitaire();
+        string prix = stream.str();
+
+        table += {nom, description, quantite, prix};
+    }
+    table.sort(true);
+    output << table;
 }

@@ -27,12 +27,17 @@ class Magasin {
         Magasin();
         Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes);
 
-         vector<Produit*> getProduits();
-         vector<Client*> getClients();
-         vector<Commande*> getCommandes();
+        vector<Produit*> getProduits();
+        vector<Client*> getClients();
+        vector<Commande*> getCommandes();
 
-         void addProduit(Produit* p);
-         void displayProducts();
+        void addProduit(Produit* p);
+        void displayProducts();
+        void displayProduct(string name);
+        void updateProductQuantity(Produit* p, int quantity);
+        void displayClients();
+        void displayClient(int id);
+        void displayClient(string name, string surname);
 };
 
 

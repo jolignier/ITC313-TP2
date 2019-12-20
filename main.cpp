@@ -2,7 +2,6 @@
 // Created by Jonathan Lignier on 11/12/2019.
 //
 #include <iostream>
-#include <iomanip>
 #include "Magasin.h"
 
 using namespace std;
@@ -12,16 +11,41 @@ int main(){
 
 
     vector<Produit*> produits;
-    Produit* p = new Produit("Titre", "Description", 12, 59.99);
-    Produit* p2 = new Produit("Titre2", "Description2", 13, 69.99);
+    Produit* p3 = new Produit("Xbox One", "Console de jeu Microsoft", 15, 179.99);
+    Produit* p = new Produit("PS4 ", "Console de jeu Sony", 10, 249.99);
+    Produit* p2 = new Produit("Switch", "Console de jeu Nintendo", 20, 299.99);
+
+    produits.push_back(p3);
+    produits.push_back(p2);
+
+    int c_id = 253;
+    int co_id = 2445;
 
     vector<Client*> clients;
+    Client* client = new Client(++c_id, "Ginhac", "Dom", produits);
+
+    produits.push_back(p);
+
+    Client* client2 = new Client(++c_id, "Gates", "Bill", produits);
+
+    clients.push_back(client);
+    clients.push_back(client2);
+
     vector<Commande*> commandes;
+    Commande* co = new Commande(client, client->getPanier(), "EN COURS DE TRAITEMNT", to_string(++co_id));
 
+    Produit* secret = new Produit("????", "Produit secret du magasin", 1, 999999999.99);
+    produits.push_back(secret);
 
-    Magasin magasin();
-    cout << p << endl;
-    cout << p2 << endl;
+    Magasin magasin(produits,clients, commandes);
+
+    magasin.displayProducts();
+    //magasin.updateProductQuantity(p2, 25);
+    //magasin.displayProduct("Switch");
+    magasin.displayClients();
+    magasin.displayClient("Dom", "Ginhac");
+    magasin.displayClient(255);
+
 
     return 0;
 

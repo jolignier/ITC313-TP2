@@ -3,7 +3,9 @@
 //
 
 #include <iostream>
-#include "Commande.h" 
+#include <iomanip>
+#include "Commande.h"
+#include "ConsoleTable.h"
 
 using namespace std;
 
@@ -54,20 +56,22 @@ string Commande::getNumero(){
 }
 
 ostream&operator<< (ostream&output,Commande commande){
-	output << "-------------------------------------------------------------------------------" <<endl;
-	output << "| Détails de la commande                                                      |" << endl;
-	output << "-------------------------------------------------------------------------------" << endl;
 
-	output << "| #" << commande.getNumero() << "|" << endl;
-	output << "| client :" << commande.getClient()->getId() << "|\t\t|" << endl;
-	
-	for (int i = 0; i < commande.getProduits().size(); ++i)
-	{
-		output << "| " << i+1 << " " << commande.getProduits().at(i)->toString() << "\t\t|" << endl;
-	}
-	
-	output << "| statut : " << commande.getStatut() << "\t\t|" << endl;
-	
-	output << "-------------------------------------------------------------------------------" << endl;
+    ConsoleTable table{"Nom","Description", "Quantite", "Prix"};
+    table.setTitle("Details de la commande");
+    table.setStyle(1);
+    for (int i = 0; i < commande.getProduits().size(); ++i) {
+        string nom = commande.getProduits().at(i)->getTitre();
+        string description = commande.getProduits().at(i)->getDescription();
+        string quantite = to_string(commande.getProduits().at(i)->getQuantite());
+
+        stringstream stream;
+        stream << fixed << setprecision(2) << "$ " << commande.getProduits().at(i)->getPrixUnitaire();
+        string prix = stream.str();
+
+        table += {nom, description, quantite, prix};
+    }
+    table.sort(true);
+    output << table;
 	return output;
 }
