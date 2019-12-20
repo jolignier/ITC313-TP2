@@ -11,6 +11,7 @@ set(SRCS
         Magasin.cpp
         Client.cpp
         Commande.cpp
+        ConsoleTable.cpp
     )
 
 set(HEADERS
@@ -18,6 +19,7 @@ set(HEADERS
         Magasin.h
         Client.h
         Commande.h
+        ConsoleTable.h
     )
 
 # On indique que l'on veut un exécutable "hello" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
