@@ -78,9 +78,14 @@ ostream&operator<< (ostream&output,Commande commande){
 
         table += {nom, description, quantite, prix};
     }
+    double prixTotal = commande.getPrixTotal();
+    stringstream stream;
+    stream << fixed << setprecision(2) << prixTotal;
+    string prix = stream.str();
+
     table.sort(true);
     table.addBottomLine("Statut de la commande : "+ commande.getStatut());
-    table.addBottomLine("TOTAL : $"+ to_string(commande.getPrixTotal()));
+    table.addBottomLine("TOTAL : $"+ prix);
 
     output << table;
 	return output;
