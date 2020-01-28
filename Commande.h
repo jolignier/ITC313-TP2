@@ -18,17 +18,18 @@ class Commande {
 
     public:
         Commande();
-        Commande(Client* client, vector<Produit*> produits, string statut, string numero);
+        Commande(Client* client, vector<Produit*> produits, string statut, int numero);
 
         Client* getClient();
         vector<Produit*> getProduits();
-
         string getStatut();
-        string getNumero();
+        int getNumero();
+        double getPrixTotal();
+
         void setClient(Client* client);
         void setProduits(vector<Produit*> produits);
         void setStatut(string statut);
-        void setNumero(string numero);
+        void setNumero(int numero);
 
         friend ostream& operator << (ostream &output, Commande Commande);
 
@@ -36,7 +37,7 @@ class Commande {
         Client* m_client;
         vector<Produit*> m_produits;
         string m_statut;
-        string m_numero;
+        int  m_numero;
 };
 
 #endif // EASYSHOP_COMMANDE_H

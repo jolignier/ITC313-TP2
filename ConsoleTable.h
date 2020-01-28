@@ -12,6 +12,7 @@ class ConsoleTable {
 public:
 
     typedef std::vector<std::string> Headers;
+    typedef std::vector<std::string> Lines;
     typedef std::vector<std::vector<std::string>> Rows;
     typedef std::vector<std::size_t> Widths;
 
@@ -24,10 +25,6 @@ public:
     /// \param n Spaces between the text and the cell border
     void setPadding(unsigned int n);
 
-
-    /// Sets the title of the table
-    /// \param title New title of the table
-    void setTitle(std::string t);
 
 
     /// Sets the style of the table, default is 0
@@ -43,6 +40,18 @@ public:
     /// \param ascending Should table be sorted ascending or descending
     /// \return True if sorting was successful, otherwise false
     bool sort(bool ascending);
+
+
+    /// Adds a new line on top of the table
+    /// \param line The line to add at the top of the table
+    /// \return True if the value was added successfully, otherwise false
+    bool addTopLine(std::string line);
+
+
+    /// Adds a new line on top of the table
+    /// \param line The line to add at the bottom of the table
+    /// \return True if the value was added successfully, otherwise false
+    bool addBottomLine(std::string line);
 
 
     /// Adds a new row to the table
@@ -83,11 +92,16 @@ public:
 
 
 private:
-    /// Holds the title string of the table
-    std::string title;
-
     /// Holds all header strings of the table
     Headers headers;
+
+
+    /// Holds all top lines strings of the table
+    Lines topLines;
+
+
+    /// Holds all bottom lines strings of the table
+    Lines bottomLines;
 
 
     /// Holds all rows of the table
@@ -109,26 +123,27 @@ private:
         std::string horizontal;
         std::string vertical;
         RowType top;
-        RowType title;
+        RowType topLine;
         RowType middle;
+        RowType bottomLine;
         RowType bottom;
     };
 
 
     /// Basic style - works on all systems, used as default style
-    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "+", "+"}};
+    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "+", "+"}, {"+", "+", "+"}};
 
 
     /// Single lined style - requires speecial character support
-    TableStyle LineStyle = {"━", "┃", {"┏", "┳", "┓"}, {"┏", "━", "┓"}, {"┣", "╋", "┫"}, {"┗", "┻", "┛"}};
+    TableStyle LineStyle = {"━", "┃", {"┏", "━", "┓"}, {"┣", "┳", "┫"}, {"┣", "╋", "┫"}, {"┣", "┻", "┫"}, {"┗", "━", "┛"}};
 
 
     /// Single double style - requires speecial character support
-    TableStyle DoubleLineStyle = {"═", "║", {"╔", "╦", "╗"}, {"╔", "═", "╗"}, {"╠", "╬", "╣"}, {"╚", "╩", "╝"}};
+    TableStyle DoubleLineStyle = {"═", "║", {"╔", "═", "╗"}, {"╠", "╦", "╣"}, {"╠", "╬", "╣"}, {"╠", "╩", "╣"}, {"╚", "═", "╝"}};
 
 
     /// No visible table outlines - works on all systems
-    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
+    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
 
 
     /// Current table style
@@ -154,10 +169,16 @@ private:
     /// \return The formatted header string
     std::string getHeaders(Headers headers) const;
 
-    /// Returns a formatted title string
-    /// \param title The title string
-    /// \return The formatted title string
-    std::string getTitle(std::string title) const;
+    /// Returns a formatted top line string
+    /// \param topLines The Lines-object that holds the top lines strings
+    /// \return A formatted string of all the Top Lines of the table
+    std::string getTopLines(Lines topLines) const;
+
+
+    /// Returns a formatted bottom line string
+    /// \param topLines The Lines-object that holds the top lines strings
+    /// \return A formatted string of all the Top Lines of the table
+    std::string getBottomLines(Lines bottomLines) const;
 
 
     /// Returns a formmatted row string

@@ -8,8 +8,6 @@ using namespace std;
 
 int main(){
 
-
-
     vector<Produit*> produits;
     Produit* p3 = new Produit("Xbox One", "Console de jeu Microsoft", 15, 179.99);
     Produit* p = new Produit("PS4 ", "Console de jeu Sony", 10, 249.99);
@@ -32,7 +30,7 @@ int main(){
     clients.push_back(client2);
 
     vector<Commande*> commandes;
-    Commande* co = new Commande(client, client->getPanier(), "EN COURS DE TRAITEMNT", to_string(++co_id));
+    Commande* co = new Commande(client, client->getPanier(), "EN COURS DE TRAITEMNT", ++co_id);
 
     Produit* secret = new Produit("????", "Produit secret du magasin", 1, 999999999.99);
     produits.push_back(secret);
@@ -40,12 +38,15 @@ int main(){
     Magasin magasin(produits,clients, commandes);
 
     magasin.displayProducts();
-    //magasin.updateProductQuantity(p2, 25);
-    //magasin.displayProduct("Switch");
+    magasin.updateProductQuantity(p2, 25);
+    magasin.displayProduct("Switch");
+
     magasin.displayClients();
+
     magasin.displayClient("Dom", "Ginhac");
     magasin.displayClient(255);
 
+    cout << *co << endl;
 
     return 0;
 

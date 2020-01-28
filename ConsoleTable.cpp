@@ -12,9 +12,6 @@ void ConsoleTable::setPadding(unsigned int n) {
     padding = n;
 }
 
-void ConsoleTable::setTitle(std::string t) {
-    title = t;
-}
 
 
 void ConsoleTable::setStyle(unsigned int n) {
@@ -35,6 +32,18 @@ void ConsoleTable::setStyle(unsigned int n) {
             style = BasicStyle;
             break;
     }
+}
+
+bool ConsoleTable::addTopLine(std::string line) {
+
+    topLines.push_back(line);
+    return true;
+}
+
+bool ConsoleTable::addBottomLine(std::string line) {
+
+    bottomLines.push_back(line);
+    return true;
 }
 
 
@@ -91,16 +100,33 @@ std::string ConsoleTable::getLine(RowType rowType) const {
     return line.str() + "\n";
 }
 
-std::string ConsoleTable::getTitle(std::string title) const {
+std::string ConsoleTable::getTopLines(Lines topLines) const {
     std::stringstream line;
     std::size_t totalWidth = widths[0];
-    for (unsigned int i=1; i <= widths.size(); i++){
-        totalWidth += widths[i];
+    for (unsigned int i=1; i < widths.size(); i++){
+        totalWidth += widths.at(i);
     }
-    line << style.vertical;
-    line << SPACE_CHARACTER * padding + title + SPACE_CHARACTER * (totalWidth - title.length() + 2*padding*widths.size() ) + SPACE_CHARACTER * padding;
-    line << SPACE_CHARACTER * (widths.size()-3) << style.vertical;
-    line << "\n";
+    for (auto &topLine : topLines) {
+        line << style.vertical;
+        line << SPACE_CHARACTER * padding + topLine + SPACE_CHARACTER * (totalWidth - topLine.length() + 2 * padding * widths.size()) + SPACE_CHARACTER * padding;
+        line << SPACE_CHARACTER * (widths.size() - 3) << style.vertical;
+        line << "\n";
+    }
+    return line.str();
+}
+
+std::string ConsoleTable::getBottomLines(Lines bottomLines) const {
+    std::stringstream line;
+    std::size_t totalWidth = widths[0];
+    for (unsigned int i=1; i < widths.size(); i++){
+        totalWidth += widths.at(i);
+    }
+    for (auto &bottomLine : bottomLines) {
+        line << style.vertical;
+        line << SPACE_CHARACTER * padding + bottomLine + SPACE_CHARACTER * (totalWidth - bottomLine.length() + 2 * padding * widths.size()) + SPACE_CHARACTER * padding;
+        line << SPACE_CHARACTER * (widths.size() - 3) << style.vertical;
+        line << "\n";
+    }
     return line.str();
 }
 
@@ -134,13 +160,16 @@ std::string ConsoleTable::getRows(Rows rows) const {
 
 
 std::ostream &operator<<(std::ostream &out, const ConsoleTable &consoleTable) {
-    out << consoleTable.getLine(consoleTable.style.title);
-    out << consoleTable.getTitle(consoleTable.title);
     out << consoleTable.getLine(consoleTable.style.top);
+    out << consoleTable.getTopLines(consoleTable.topLines);
+    out << consoleTable.getLine(consoleTable.style.topLine);
     out << consoleTable.getHeaders(consoleTable.headers);
     out << consoleTable.getLine(consoleTable.style.middle);
     out << consoleTable.getRows(consoleTable.rows);
+    out << consoleTable.getLine(consoleTable.style.bottomLine);
+    out << consoleTable.getTopLines(consoleTable.bottomLines);
     out << consoleTable.getLine(consoleTable.style.bottom);
+
     return out;
 }
 
