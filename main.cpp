@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int main(){
+int mainTest(){
 
     vector<Produit*> produits;
     Produit* p3 = new Produit("Xbox One", "Console de jeu Microsoft", 15, 179.99);

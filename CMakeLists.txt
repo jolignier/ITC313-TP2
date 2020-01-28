@@ -1,10 +1,9 @@
-# Nous voulons un cmake "récent" pour utiliser les dernières fonctionnalités
 cmake_minimum_required(VERSION 3.0)
 
-# Notre projet est étiqueté hello
+# Nom du projet
 project(EasyShop)
 
-# Crée des variables avec les fichiers à compiler
+# On crée des variables SRCS et HEADERS avec les fichiers à compiler
 set(SRCS
         main.cpp
         Produit.cpp
@@ -12,7 +11,8 @@ set(SRCS
         Client.cpp
         Commande.cpp
         ConsoleTable.cpp
-    )
+        mainMenu.cpp
+        )
 
 set(HEADERS
         Produit.h
