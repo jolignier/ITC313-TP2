@@ -1,4 +1,6 @@
 # ITC313-TP2
+
+## Introduction au projet EASYSHOP
 L'application EASYSHOP Facilite votre vie et vous permet de devenir au moins aussi riche que Elon Musk !  
 Grâce à son ingénieux système de gestion de commerce, vous pourrez créer votre propre magasin :
 
