@@ -124,29 +124,47 @@ void Magasin::displayClient(string name, string surname) {
     }
 }
 
-void Magasin::validerCommande(Commande c) {
-    setCommandeStatut(c, "Validée");
+void Magasin::validerCommande(Commande* c) {
+    setCommandeStatut(c, "Validee");
 }
 
-void Magasin::setCommandeStatut(Commande c, string statut) {
+void Magasin::setCommandeStatut(Commande* c, string statut) {
     for (int i = 0; i < m_commandes.size(); ++i) {
-        if (c.getNumero() == m_commandes.at(i)->getNumero()){
+        if (c->getNumero() == m_commandes.at(i)->getNumero()){
             m_commandes.at(i)->setStatut(statut);
         }
     }
 }
 
-void Magasin::displayCommandesValidee() {
-
-    ConsoleTable table{"Numéro","ID CLient", "Nom Client", "Prix Total"};
-    table.addTopLine("Liste des commandes");
+void Magasin::displayCommandesValidees() {
+    cout << "LISTE DES COMMANDES VALIDEES" << endl;
     for (int i = 0; i < m_commandes.size(); ++i) {
-        double prixTotal = m_commandes.at(i)->getPrixTotal();
+        cout << *m_commandes.at(i) << endl;
+    }
+}
 
-        stringstream stream;
-        stream << fixed << setprecision(2) << "$ " << prixTotal;
-        string prix = stream.str();
+void Magasin::displayCommandesClient(Client* client) {
+    for (int i = 0; i < m_commandes.size(); ++i) {
+        if (m_commandes.at(i)->getClient() == client) {
+            cout << *m_commandes.at(i) << endl;
+        }
+    }
+}
 
-//        table += {nom, description, quantite, prix};
+void Magasin::displayCommandesClient(int id) {
+    for (int i = 0; i < m_clients.size(); ++i) {
+        if (m_clients.at(i)->getId() == id) {
+            displayCommandesClient(m_clients.at(i));
+            break;
+        }
+    }
+}
+
+void Magasin::displayCommandesClient(string prenom, string nom) {
+    for (int i = 0; i < m_clients.size(); ++i) {
+        if (m_clients.at(i)->getNom() == nom && m_clients.at(i)->getPrenom() == prenom) {
+            displayCommandesClient(m_clients.at(i));
+            break;
+        }
     }
 }

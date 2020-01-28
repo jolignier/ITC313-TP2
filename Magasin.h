@@ -39,10 +39,14 @@ class Magasin {
         void displayClient(int id);
         void displayClient(string name, string surname);
 
-        void validerCommande(Commande c);
-        void setCommandeStatut(Commande c, string statut);
+        void validerCommande(Commande* c);
+        void setCommandeStatut(Commande* c, string statut);
 
-        void displayCommandesValidee();
+        void displayCommandesValidees();
+
+        void displayCommandesClient(Client* client);
+        void displayCommandesClient(int id);
+        void displayCommandesClient(string prenom, string nom);
 };
 
 

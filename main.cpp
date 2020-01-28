@@ -30,12 +30,14 @@ int main(){
     clients.push_back(client2);
 
     vector<Commande*> commandes;
-    Commande* co = new Commande(client, client->getPanier(), "EN COURS DE TRAITEMNT", ++co_id);
+    Commande* co = new Commande(client, client->getPanier(), "En cours de traitement", ++co_id);
+    commandes.push_back(co);
 
     Produit* secret = new Produit("????", "Produit secret du magasin", 1, 999999999.99);
     produits.push_back(secret);
 
     Magasin magasin(produits,clients, commandes);
+
 
     magasin.displayProducts();
     magasin.updateProductQuantity(p2, 25);
@@ -46,7 +48,10 @@ int main(){
     magasin.displayClient("Dom", "Ginhac");
     magasin.displayClient(255);
 
-    cout << *co << endl;
+    magasin.validerCommande(co);
+    magasin.displayCommandesValidees();
+
+    magasin.displayCommandesClient(client);
 
     return 0;
 

@@ -12,13 +12,12 @@ Grâce à son ingénieux système de gestion de commerce, vous pourrez créer vo
 	* Ajouter une commande
 	* Afficher toutes les commandes passées
 	* Afficher une commande grâce à son ID
-	* Afficher toutes les commandes d'un certain client grâce à son nom
-	* Afficher toutes les commandes d'un certain client grâce à son ID
+	* Afficher toutes les commandes d'un certain client
 * Produits
 	* Ajouter un produit
 	* Modifier un produit
 	* Afficher tous les produits du magasins
-	* Afficher les détails d'un produit grâce à osn nom
+	* Afficher les détails d'un produit grâce à son nom
 
 Et tout cela grâce à un menu simple et intuitif !
 
