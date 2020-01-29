@@ -53,7 +53,8 @@ void Client::supprimerProduit(Produit* p) {
 
 ostream&operator<< (ostream&output, Client client){
     ConsoleTable table{"Nom","Description", "Quantite", "Prix Unitaire"};
-    table.addTopLine("Panier du client #"+ to_string(client.getId()) + " : "+ client.getPrenom() + " " + client.getNom());
+    table.addTopLine("Client #"+ to_string(client.getId()) + " : "+ client.getPrenom() + " " + client.getNom());
+    table.addTopLine("Panier :")
     table.setStyle(1);
     for (int i = 0; i < client.getPanier().size(); ++i) {
         string nom = client.getPanier().at(i)->getTitre() ;
