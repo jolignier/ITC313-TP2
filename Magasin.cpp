@@ -124,6 +124,14 @@ void Magasin::displayClient(string name, string surname) {
     }
 }
 
+void Magasin::addProductToBasket(Client *c, Produit *p) {
+    c->ajouterProduit(p);
+}
+
+void Magasin::removeProductFromBasket(Client *c, Produit *p) {
+    c->supprimerProduit(p);
+}
+
 void Magasin::validerCommande(Commande* c) {
     setCommandeStatut(c, "Validee");
 }
@@ -168,3 +176,5 @@ void Magasin::displayCommandesClient(string prenom, string nom) {
         }
     }
 }
+
+

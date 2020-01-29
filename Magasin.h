@@ -39,6 +39,9 @@ class Magasin {
         void displayClient(int id);
         void displayClient(string name, string surname);
 
+        void addProductToBasket(Client* c, Produit* p);
+        void removeProductFromBasket(Client* c, Produit* p);
+
         void validerCommande(Commande* c);
         void setCommandeStatut(Commande* c, string statut);
 

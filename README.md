@@ -29,7 +29,8 @@ Et tout cela grâce à un menu simple et intuitif !
 
 ## Crédits
 * Classe ConsoleTable crée par 766F6964 [lien Github](https://github.com/766F6964/ConsoleTable)
-	* adapatée à notre projet pour l'affichage des tableaux de manière **très propre** et dynamique
+	* Adapatée à notre projet pour l'affichage des tableaux de manière **très propre** et de **largeur dynamique**
+	* Modifiée afin de pouvoir ajouter des lignes au dessus et en dessous des tableaux *(Nom du tableau, Statut de la commande et prix total)*
 
 	![Capture d'cran d'un tableau console sans ligne de fin](images/easyshop_table1.png) ![Capture d'cran d'un tableau console avec ligne de fin](images/easyshop_table2.png)
 ## Avancée du projet
@@ -95,6 +96,6 @@ Et tout cela grâce à un menu simple et intuitif !
 - [x] 7.d) Ajouter une méthode permettant d'afficher toutes les commandes d'un client donné.
 
 ### Question 8 : Questions subsidiaires
-- [ ] 8.a) Dans le programme principal, créer un menu permettant de sélectionner l'action à faire : gestion du magasin, gestion des utilisateurs, gestion des commandes. Pour chacun des actions, créer un sous menu avec les options correspondantes. Par exemple, pour gestion du magasin, ajouter les commandes : ajout d'un produit, affichage des produits, mise a jour des quantités, …
+- [ ] 8.a) Dans le programme principal, créer un menu permettant de sélectionner l'action à faire : gestion du magasin, gestion des utilisateurs, gestion des commandes. Pour chacunes des actions, créer un sous menu avec les options correspondantes. Par exemple, pour gestion du magasin, ajouter les commandes : ajout d'un produit, affichage des produits, mise a jour des quantités, …
 
 - [ ] 8.b) Ecrire le code nécessaire à l'enregistrement et à la lecture des données (produits, clients et commandes) dans des fichiers.
