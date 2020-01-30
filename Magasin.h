@@ -23,13 +23,19 @@ class Magasin {
         vector<Client*> m_clients;
         vector<Commande*> m_commandes;
 
+        int startIDClient;
+        int startIDProduct;
+
     public:
         Magasin();
-        Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes);
+        Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes, int idC = 0, int idP = 0);
 
+        ~Magasin();
         vector<Produit*> getProduits();
         vector<Client*> getClients();
         vector<Commande*> getCommandes();
+
+        Produit* getProduit(string nom);
 
         void addProduit(Produit* p);
         void displayProducts();

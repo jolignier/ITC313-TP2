@@ -7,7 +7,8 @@
 // While running on WINDOWS systems, you may experience some artefacts
 // If it's your case, please enable WSL and run this program under bash.exe
 
-
+#define ANSI_GREEN "\033[0;92m"
+#define ANSI_RESET "\033[0;0m"
 
 #include <iostream>
 #include <limits>
@@ -22,7 +23,7 @@ using namespace std;
 void move(int x, int y){
     // Déplace le curseur en x,y
     string escape_ANSI = "\033["+to_string(y)+";"+to_string(x)+"H";
-    printf(escape_ANSI.c_str());
+    printf("%s", escape_ANSI.c_str());
 }
 
 void drawInputBox(){
@@ -39,11 +40,11 @@ void drawInputBox(){
 
     // DRAW THE BOX
     move(x,y);
-    printf(top.c_str());
+    printf("%s", top.c_str());
     move(x,y+1);
-    printf(mid.c_str());
+    printf("%s", mid.c_str());
     move(x,y+2);
-    printf(bot.c_str());
+    printf("%s", bot.c_str());
 
     // MOVE CURSOR INSIDE THE BOX
     move(x+5, y+1);
@@ -52,20 +53,20 @@ void drawInputBox(){
 void displayTitleScreen() {
     system("clear");
     move(5, 2);
-    cout << "███████╗ █████╗ ███████╗██╗   ██╗███████╗██╗  ██╗ ██████╗ ██████╗ ";
+    cout << ANSI_GREEN << "███████╗ █████╗ ███████╗██╗   ██╗" << ANSI_RESET << "███████╗██╗  ██╗ ██████╗ ██████╗ ";
     move(5, 3);
-    cout << "██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝██╔════╝██║  ██║██╔═══██╗██╔══██╗";
+    cout << ANSI_GREEN << "██╔════╝██╔══██╗██╔════╝╚██╗ ██╔╝" << ANSI_RESET << "██╔════╝██║  ██║██╔═══██╗██╔══██╗";
     move(5, 4);
-    cout << "█████╗  ███████║███████╗ ╚████╔╝ ███████╗███████║██║   ██║██████╔╝";
+    cout << ANSI_GREEN << "█████╗  ███████║███████╗ ╚████╔╝ " << ANSI_RESET << "███████╗███████║██║   ██║██████╔╝";
     move(5, 5);
-    cout << "██╔══╝  ██╔══██║╚════██║  ╚██╔╝  ╚════██║██╔══██║██║   ██║██╔═══╝ ";
+    cout << ANSI_GREEN << "██╔══╝  ██╔══██║╚════██║  ╚██╔╝  " << ANSI_RESET << "╚════██║██╔══██║██║   ██║██╔═══╝ ";
     move(5, 6);
-    cout << "███████╗██║  ██║███████║   ██║   ███████║██║  ██║╚██████╔╝██║     ";
+    cout << ANSI_GREEN << "███████╗██║  ██║███████║   ██║   " << ANSI_RESET << "███████║██║  ██║╚██████╔╝██║     ";
     move(5, 7);
-    cout << "╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     " << endl;
+    cout << ANSI_GREEN << "╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝   " << ANSI_RESET << "╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     " << endl;
     cout << "L'application EASYSHOP Facilite votre vie et vous permet de devenir au moins aussi riche que Elon Musk !"<< endl << endl;
     cout << "1 - Lancer le programme" << endl;
-    cout <<         "2 - Quitter" << endl;
+    cout << "2 - Quitter" << endl;
     drawInputBox();
 }
 
@@ -84,11 +85,11 @@ void displayUserManagement() {
     system("clear");
     cout << "1 - Ajouter un client" << endl;
     cout << "2 - Modifier un client grâce à son ID" << endl;
-    cout << "2 - Modifier un client grâce à son nom" << endl;
-    cout << "3 - Afficher la liste des clients" << endl;
-    cout << "4 - Afficher un client grâce à son ID" << endl;
-    cout << "5 - Afficher un client grâce à son nom" << endl;
-    cout << "6 - Retour au menu principal" << endl;
+    cout << "3 - Modifier un client grâce à son nom" << endl;
+    cout << "4 - Afficher la liste des clients" << endl;
+    cout << "5 - Afficher un client grâce à son ID" << endl;
+    cout << "6 - Afficher un client grâce à son nom" << endl;
+    cout << "7 - Retour au menu principal" << endl;
     drawInputBox();
 }
 
@@ -106,12 +107,10 @@ void displayOrderManagement() {
 void displayShopManagement() {
     system("clear");
     cout << "1 - Ajouter un produit" << endl;
-    cout << "2 - Modifier un produit grâce à son ID" << endl;
-    cout << "3 - Modifier un produit grâce à son nom" << endl;
-    cout << "4 - Afficher tous les produits du magasin" << endl;
-    cout << "5 - Afficher les détails d'un produit grâce à son ID" << endl;
-    cout << "6 - Afficher les détails d'un produit grâce à son nom" << endl;
-    cout << "7 - Retour au menu principal" << endl;
+    cout << "2 - Modifier la quantité d'un produit" << endl;
+    cout << "3 - Afficher tous les produits du magasin" << endl;
+    cout << "4 - Afficher les détails d'un produit grâce à son nom" << endl;
+    cout << "5 - Retour au menu principal" << endl;
     drawInputBox();
 }
 
@@ -127,11 +126,26 @@ int getInput(){
     return choix;
 }
 
-int main(){
+void press_to_continue() {
+    cin.clear();
+    cout << ANSI_GREEN << "Appuyer sur une touche pour continuer ..." << ANSI_RESET << endl;
+    //cin.get();
+    system("pause");
+}
 
+int main(){
+    // Global scope variables
     int choix = 0, choix2 = 0, choix3 = 0;
     bool quit = false, quit2 = false, quit3 = false;
 
+    vector<Produit*> produits;
+    vector<Client*> clients;
+    vector<Commande*> commandes;
+    int startIDClient = 1; int startIDProduct = 1;
+
+    Magasin easyshop(produits, clients, commandes, startIDClient, startIDProduct);
+
+    // Loop over the menu until user want to quit
     while(!quit) {
         displayTitleScreen();
         choix = getInput();
@@ -149,22 +163,61 @@ int main(){
                                 choix3 = getInput();
                                 switch(choix3) {
                                     case 1: // Ajouter un produit
+                                    {
+                                        string nom, desc;
+                                        int quantite;
+                                        double prixU;
+
+                                        cout << "Nom du produit : ";
+                                        cin >> nom;
+                                        cout << "Description du produit : ";
+                                        cin >> desc;
+                                        cout << "Quantitée disponible : ";
+                                        quantite = getInput();
+                                        cout << "Prix unitaire du produit : ";
+                                        cin >> prixU;
+                                        Produit* p = new Produit(nom, desc, quantite, prixU);
+                                        easyshop.addProduit(p);
+                                        cout << ANSI_GREEN << "Le produit à été ajouté" << ANSI_RESET << endl;
+                                        sleep(3);
+                                        displayShopManagement();
                                         break;
-                                    case 2: // Modifier un produit
+                                    }
+                                    case 2: // Modifier la quantité d'un produit
+                                    {
+                                        string nom;
+                                        cout << "Nom du produit : ";
+                                        cin >> nom;
+                                        cout << "Nouvelle quantité : ";
+                                        int quantite = getInput();
+                                        easyshop.updateProductQuantity(easyshop.getProduit(nom), quantite);
+                                        cout << ANSI_GREEN << "Le produit à été modifié" << ANSI_RESET << endl;
+                                        displayShopManagement();
                                         break;
-                                    case 3:
+                                    }
+                                    case 3: // Afficher tous les produits du magasin
+                                        system("clear");
+                                        easyshop.displayProducts();
+                                        press_to_continue();
+                                        displayShopManagement();
                                         break;
-                                    case 4:
+                                    case 4: // Afficher les détails d'un produit
+                                    {
+                                        string nom;
+                                        cout << "Nom du produit : ";
+                                        cin >> nom;
+                                        system("clear");
+                                        easyshop.displayProduct(nom);
+                                        press_to_continue();
+                                        displayShopManagement();
                                         break;
-                                    case 5:
-                                        break;
-                                    case 6:  // RETOUR AU MENU PRINCIPAL
+                                    }
+                                    case 5:  // RETOUR AU MENU PRINCIPAL
                                         displayMainMenu();
                                         quit3 = true;
                                         break;
                                     default:
                                         displayShopManagement();
-                                        choix3 = getInput();
                                         break;
                                 }
                             }
@@ -177,21 +230,22 @@ int main(){
                                 switch(choix3) {
                                     case 1: // Ajouter un client
                                         break;
-                                    case 2: // Modifier un client
+                                    case 2: // Modifier un client grâce à son ID
                                         break;
-                                    case 3: // Afficher tous les clients
+                                    case 3: // Modifier un client grâce à son nom
                                         break;
-                                    case 4: // Aficher un client grâce à son ID
+                                    case 4: // Afficher tous les clients
                                         break;
-                                    case 5: // Afficher un client grâce à son nom
+                                    case 5: // Aficher un client grâce à son ID
                                         break;
-                                    case 6: // RETOUR AU MENU PRINCIPAL
+                                    case 6: // Afficher un client grâce à son nom
+                                        break;
+                                    case 7: // RETOUR AU MENU PRINCIPAL
                                         displayMainMenu();
                                         quit3 = true;
                                         break;
                                     default:
                                         displayUserManagement();
-                                        choix3 = getInput();
                                         break;
                                 }
                             }
@@ -218,7 +272,6 @@ int main(){
                                         break;
                                     default:
                                         displayOrderManagement();
-                                        choix3 = getInput();
                                         break;
                                 }
                             }
@@ -232,7 +285,6 @@ int main(){
                             break;
                         default:
                             displayMainMenu();
-                            choix2 = getInput();
                             break;
                     }
                 }
@@ -242,7 +294,6 @@ int main(){
                 break;
             default:
                 displayTitleScreen();
-                choix = getInput();
                 break;
         }
     }

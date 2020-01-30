@@ -36,7 +36,7 @@ int mainTest(){
     Produit* secret = new Produit("????", "Produit secret du magasin", 1, 999999999.99);
     produits.push_back(secret);
 
-    Magasin magasin(produits,clients, commandes);
+    Magasin magasin(produits,clients, commandes, 0, 0);
 
 
     magasin.displayProducts();

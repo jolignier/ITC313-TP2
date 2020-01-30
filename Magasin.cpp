@@ -8,12 +8,25 @@
 
 Magasin::Magasin() {}
 
-Magasin::Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes){
+Magasin::Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes, int idC, int idP){
    this->m_clients = clients;
    this->m_produits = produits;
    this->m_commandes = commandes;
+   this->startIDClient = idC;
+   this->startIDProduct = idP;
 }
 
+Magasin::~Magasin() {
+    for (Produit* p : m_produits){
+        delete p;
+    }
+    for (Client* c : m_clients){
+        delete c;
+    }
+    for (Commande* c : m_commandes){
+        delete c;
+    }
+}
 
 vector<Produit*> Magasin::getProduits(){
     return m_produits;
@@ -23,6 +36,16 @@ vector<Client* >Magasin::getClients(){
 }
 vector<Commande*> Magasin::getCommandes(){
     return m_commandes;
+}
+
+Produit *Magasin::getProduit(string nom) {
+    Produit* res = nullptr;
+    for (Produit* p : m_produits) {
+        if (p->getTitre() == nom) {
+            res = p;
+        }
+    }
+    return res;
 }
 
 void Magasin::addProduit(Produit *p) {
@@ -176,5 +199,7 @@ void Magasin::displayCommandesClient(string prenom, string nom) {
         }
     }
 }
+
+
 
 
