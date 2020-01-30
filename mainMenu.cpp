@@ -127,7 +127,7 @@ int getInput(){
 }
 
 void press_to_continue() {
-    cout << ANSI_GREEN << "Appuyer sur une touche pour continuer ..." << ANSI_RESET << endl;
+    cout << ANSI_GREEN << "Appuyer sur ENTREE pour continuer ..." << ANSI_RESET << endl;
     system("read var");
 }
 
