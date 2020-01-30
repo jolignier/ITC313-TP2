@@ -6,18 +6,19 @@ Grâce à son ingénieux système de gestion de commerce, vous pourrez créer vo
 
 * Clients
 	* Ajouter un client
-	* Modifier un client
-	* Afficher tous les clients
-	* Afficher un client grâce à son nom
+	* Afficher la fiste des clients
 	* Afficher un client grâce à son ID
+	* Afficher un client grâce à son nom
 * Commandes
-	* Ajouter une commande
-	* Afficher toutes les commandes passées
+	* Afficher toutes les commandes
+	* Valider une commande grâce à son ID
+	* Afficher toutes les commandes validées
 	* Afficher une commande grâce à son ID
-	* Afficher toutes les commandes d'un certain client
+	* Afficher toutes les commandes d'un certain client grâce à son ID
+	* Afficher toutes les commandes d'un certain client grâce à son nom
 * Produits
 	* Ajouter un produit
-	* Modifier un produit
+	* Modifier la quantité d'un produit
 	* Afficher tous les produits du magasins
 	* Afficher les détails d'un produit grâce à son nom
 
@@ -96,6 +97,6 @@ Et tout cela grâce à un menu simple et intuitif !
 - [x] 7.d) Ajouter une méthode permettant d'afficher toutes les commandes d'un client donné.
 
 ### Question 8 : Questions subsidiaires
-- [ ] 8.a) Dans le programme principal, créer un menu permettant de sélectionner l'action à faire : gestion du magasin, gestion des utilisateurs, gestion des commandes. Pour chacunes des actions, créer un sous menu avec les options correspondantes. Par exemple, pour gestion du magasin, ajouter les commandes : ajout d'un produit, affichage des produits, mise a jour des quantités, …
+- [x] 8.a) Dans le programme principal, créer un menu permettant de sélectionner l'action à faire : gestion du magasin, gestion des utilisateurs, gestion des commandes. Pour chacunes des actions, créer un sous menu avec les options correspondantes. Par exemple, pour gestion du magasin, ajouter les commandes : ajout d'un produit, affichage des produits, mise a jour des quantités, …
 
 - [ ] 8.b) Ecrire le code nécessaire à l'enregistrement et à la lecture des données (produits, clients et commandes) dans des fichiers.

@@ -8,7 +8,10 @@
 // If it's your case, please enable WSL and run this program under bash.exe
 
 #define ANSI_GREEN "\033[0;92m"
+#define ANSI_RED   "\033[0;91m"
 #define ANSI_RESET "\033[0;0m"
+
+#define SLEEP_DELAY 2
 
 #include <iostream>
 #include <limits>
@@ -84,23 +87,22 @@ void displayMainMenu(){
 void displayUserManagement() {
     system("clear");
     cout << "1 - Ajouter un client" << endl;
-    cout << "2 - Modifier un client grâce à son ID" << endl;
-    cout << "3 - Modifier un client grâce à son nom" << endl;
-    cout << "4 - Afficher la liste des clients" << endl;
-    cout << "5 - Afficher un client grâce à son ID" << endl;
-    cout << "6 - Afficher un client grâce à son nom" << endl;
-    cout << "7 - Retour au menu principal" << endl;
+    cout << "2 - Afficher la liste des clients" << endl;
+    cout << "3 - Afficher un client grâce à son ID" << endl;
+    cout << "4 - Afficher un client grâce à son nom" << endl;
+    cout << "5 - Retour au menu principal" << endl;
     drawInputBox();
 }
 
 void displayOrderManagement() {
     system("clear");
-    cout << "1 - Ajouter une commande" << endl;
-    cout << "2 - Afficher la liste des commandes passées" << endl;
-    cout << "3 - Afficher une commande grâce à son ID" << endl;
-    cout << "4 - Afficher toutes les commandes d'un certain client grâce à son ID" << endl;
-    cout << "5 - Afficher toutes les commandes d'un certain client grâce à son nom" << endl;
-    cout << "6 - Retour au menu principal" << endl;
+    cout << "1 - Afficher la liste des commandes" << endl;
+    cout << "2 - Valider une commande grâce à son ID" << endl;
+    cout << "3 - Afficher la liste des commandes validées" << endl;
+    cout << "4 - Afficher une commande grâce à son ID" << endl;
+    cout << "5 - Afficher toutes les commandes d'un certain client grâce à son ID" << endl;
+    cout << "6 - Afficher toutes les commandes d'un certain client grâce à son nom" << endl;
+    cout << "7 - Retour au menu principal" << endl;
     drawInputBox();
 }
 
@@ -131,6 +133,48 @@ void press_to_continue() {
     system("read var");
 }
 
+void to_be_implemented_next() {
+    system("clear");
+    move(5, 2);
+    cout << ANSI_RED << " █████╗     ██╗   ██╗███████╗███╗   ██╗██╗██████╗ " << endl;
+    move(5, 3);
+    cout <<             "██╔══██╗    ██║   ██║██╔════╝████╗  ██║██║██╔══██╗" << endl;
+    move(5, 4);
+    cout <<             "███████║    ██║   ██║█████╗  ██╔██╗ ██║██║██████╔╝" << endl;
+    move(5, 5);
+    cout <<             "██╔══██║    ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║██╔══██╗" << endl;
+    move(5, 6);
+    cout <<             "██║  ██║     ╚████╔╝ ███████╗██║ ╚████║██║██║  ██║" << endl;
+    move(5, 7);
+    cout <<             "╚═╝  ╚═╝      ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝" << endl;
+    move(5,9);
+    cout << "Appuyer sur ENTREE pour revenir à l'écran titre ..." << ANSI_RESET << endl;
+    system("read var");
+}
+
+void init_shop_with_dummy_values(Magasin* shop){
+    Produit* p3 = new Produit("Xbox One", "Console de jeu Microsoft", 15, 179.99);
+    Produit* p = new Produit("PS4 ", "Console de jeu Sony", 10, 249.99);
+    Produit* p2 = new Produit("Switch", "Console de jeu Nintendo", 20, 299.99);
+
+    shop->addProduit(p);
+    shop->addProduit(p2);
+    shop->addProduit(p3);
+
+    Client* client = new Client(shop->generateClientID(), "Ginhac", "Dom", shop->getProduits());
+    Client* client2 = new Client(shop->generateClientID(), "Gates", "Bill", shop->getProduits());
+
+    shop->addClient(client);
+    shop->addClient(client2);
+
+    Commande* co = new Commande(client, client->getPanier(), "En cours de traitement", shop->generateOrderID());
+    Commande* co2 = new Commande(client2, client->getPanier(), "En cours de traitement", shop->generateOrderID());
+
+    shop->addCommande(co);
+    shop->addCommande(co2);
+}
+
+
 int main(){
     // Global scope variables
     int choix = 0, choix2 = 0, choix3 = 0;
@@ -139,9 +183,12 @@ int main(){
     vector<Produit*> produits;
     vector<Client*> clients;
     vector<Commande*> commandes;
-    int startIDClient = 1; int startIDProduct = 1;
 
-    Magasin easyshop(produits, clients, commandes, startIDClient, startIDProduct);
+    int startIDClient = 0; int startIDOrder = 0;
+
+    Magasin easyshop(produits, clients, commandes, startIDClient, startIDOrder);
+
+    init_shop_with_dummy_values(&easyshop);
 
     // Loop over the menu until user want to quit
     while(!quit) {
@@ -165,19 +212,19 @@ int main(){
                                         string nom, desc;
                                         int quantite;
                                         double prixU;
-
+                                        cin.ignore();
                                         cout << "Nom du produit : ";
-                                        cin >> nom;
+                                        getline(cin, nom);
                                         cout << "Description du produit : ";
-                                        cin >> desc;
+                                        getline(cin, desc);
                                         cout << "Quantitée disponible : ";
                                         quantite = getInput();
                                         cout << "Prix unitaire du produit : ";
                                         cin >> prixU;
                                         Produit* p = new Produit(nom, desc, quantite, prixU);
                                         easyshop.addProduit(p);
-                                        cout << ANSI_GREEN << "Le produit à été ajouté" << ANSI_RESET << endl;
-                                        sleep(3);
+                                        cout << ANSI_GREEN << "Le produit a été ajouté" << ANSI_RESET << endl;
+                                        sleep(SLEEP_DELAY);
                                         displayShopManagement();
                                         break;
                                     }
@@ -185,11 +232,12 @@ int main(){
                                     {
                                         string nom;
                                         cout << "Nom du produit : ";
-                                        cin >> nom;
+                                        cin.ignore();
+                                        getline(cin, nom);
                                         cout << "Nouvelle quantité : ";
                                         int quantite = getInput();
                                         easyshop.updateProductQuantity(easyshop.getProduit(nom), quantite);
-                                        cout << ANSI_GREEN << "Le produit à été modifié" << ANSI_RESET << endl;
+                                        cout << ANSI_GREEN << "Le produit a été modifié" << ANSI_RESET << endl;
                                         displayShopManagement();
                                         break;
                                     }
@@ -203,7 +251,8 @@ int main(){
                                     {
                                         string nom;
                                         cout << "Nom du produit : ";
-                                        cin >> nom;
+                                        cin.ignore();
+                                        getline(cin, nom);
                                         system("clear");
                                         easyshop.displayProduct(nom);
                                         press_to_continue();
@@ -227,18 +276,54 @@ int main(){
                                 choix3 = getInput();
                                 switch(choix3) {
                                     case 1: // Ajouter un client
+                                    {
+                                        int id;
+                                        string nom, prenom;
+                                        vector<Produit*> panier;
+                                        id = easyshop.generateClientID();
+                                        cout << "Prenom du client : ";
+                                        cin.ignore();
+                                        getline(cin, prenom);
+                                        cout << "Nom de famille du client : ";
+                                        getline(cin, nom);
+                                        Client* c = new Client(id,nom, prenom, panier);
+                                        easyshop.addClient(c);
+                                        cout << ANSI_GREEN << "Le client a été ajouté" << ANSI_RESET << endl;
+                                        sleep(SLEEP_DELAY);
+                                        displayUserManagement();
                                         break;
-                                    case 2: // Modifier un client grâce à son ID
+                                    }
+                                    case 2: // Afficher tous les clients
+                                        system("clear");
+                                        easyshop.displayClients();
+                                        press_to_continue();
+                                        displayUserManagement();
                                         break;
-                                    case 3: // Modifier un client grâce à son nom
+                                    case 3: // Aficher un client grâce à son ID
+                                    {
+                                        cout << "ID Du client : ";
+                                        int id = getInput();
+                                        system("clear");
+                                        easyshop.displayClient(id);
+                                        press_to_continue();
+                                        displayUserManagement();
                                         break;
-                                    case 4: // Afficher tous les clients
+                                    }
+                                    case 4: // Afficher un client grâce à son nom
+                                    {
+                                        string prenom, nom;
+                                        cout << "Prenom du client : ";
+                                        cin.ignore();
+                                        getline(cin, prenom);
+                                        cout << "Nom de famille du client : ";
+                                        getline(cin, nom);
+                                        system("clear");
+                                        easyshop.displayClient(prenom, nom);
+                                        press_to_continue();
+                                        displayUserManagement();
                                         break;
-                                    case 5: // Aficher un client grâce à son ID
-                                        break;
-                                    case 6: // Afficher un client grâce à son nom
-                                        break;
-                                    case 7: // RETOUR AU MENU PRINCIPAL
+                                    }
+                                    case 5: // RETOUR AU MENU PRINCIPAL
                                         displayMainMenu();
                                         quit3 = true;
                                         break;
@@ -254,17 +339,72 @@ int main(){
                             while(!quit3) {
                                 choix3 = getInput();
                                 switch(choix3) {
-                                    case 1: // Ajouter une commande
+                                    case 1: // Afficher toutes les commandes
+                                        system("clear");
+                                        easyshop.displayCommandes();
+                                        press_to_continue();
+                                        displayOrderManagement();
                                         break;
-                                    case 2: // Afficher toutes les commandes
+                                    case 2 : // Valider une commande grâce à son ID
+                                    {
+                                        cout << "ID de la commande : ";
+                                        int id = getInput();
+                                        Commande * c = easyshop.getCommande(id);
+                                        if ( easyshop.getCommande(id) != nullptr) {
+                                            easyshop.validerCommande(c);
+                                            if (easyshop.getCommande(id)->getStatut() == "Validee") {
+                                                cout << ANSI_GREEN << "La commande a été validée" << ANSI_RESET << endl;
+                                            } else {
+                                                cout << ANSI_RED << "La commande n'a pas été validée" << ANSI_RESET << endl;
+                                            }
+                                        } else {
+                                            cout << ANSI_RED << "La commande n'existe pas" << ANSI_RESET << endl;
+                                        }
+                                        sleep(SLEEP_DELAY);
+                                        displayOrderManagement();
                                         break;
-                                    case 3: // Afficher une commande grâce à son ID
+                                    }
+                                    case 3: // Afficher toutes les commandes validées
+                                        system("clear");
+                                        easyshop.displayCommandesValidees();
+                                        press_to_continue();
+                                        displayOrderManagement();
                                         break;
-                                    case 4: // Afficher toutes les commandes d'un client grâce à son nom
+                                    case 4: // Afficher une commande grâce à son ID
+                                     {
+                                         cout << "ID de la commande : ";
+                                         int id = getInput();
+                                         system("clear");
+                                         easyshop.displayCommande(id);
+                                         press_to_continue();
+                                         displayOrderManagement();
+                                         break;
+                                     }
+                                    case 5: // Afficher toutes les commandes d'un client grâce à son ID
+                                    {
+                                        cout << "ID du client : ";
+                                        int id = getInput();
+                                        system("clear");
+                                        easyshop.displayCommandesClient(id);
+                                        press_to_continue();
+                                        displayOrderManagement();
                                         break;
-                                    case 5:
+                                    }
+                                    case 6: // Afficher toutes les commandes d'un client grâce à son nom
+                                    {
+                                        string prenom, nom;
+                                        cout << "Prénom du client : ";
+                                        cin.ignore();
+                                        getline(cin, prenom);
+                                        cout << "Nom de famille du client : ";
+                                        getline(cin, nom);
+                                        system("clear");
+                                        easyshop.displayCommandesClient(prenom, nom);
+                                        press_to_continue();
+                                        displayOrderManagement();
                                         break;
-                                    case 6: // RETOUR AU MENU PRINCIPAL
+                                    }
+                                    case 7: // RETOUR AU MENU PRINCIPAL
                                         displayMainMenu();
                                         quit3 = true;
                                         break;
@@ -275,8 +415,12 @@ int main(){
                             }
                             break;
                         case 4 : // SAUVEGARDER LE MAGASIN
+                            to_be_implemented_next();
+                            quit2 = true;
                             break;
                         case 5 : // CHARGER UN MAGASIN
+                            to_be_implemented_next();
+                            quit2 = true;
                             break;
                         case 6 : // RETOUR A L'ECRAN TITRE
                             quit2 = true;

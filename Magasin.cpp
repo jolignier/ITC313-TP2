@@ -8,12 +8,12 @@
 
 Magasin::Magasin() {}
 
-Magasin::Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes, int idC, int idP){
+Magasin::Magasin(vector<Produit*> produits, vector<Client*> clients, vector<Commande*> commandes, int idC, int idO){
    this->m_clients = clients;
    this->m_produits = produits;
    this->m_commandes = commandes;
-   this->startIDClient = idC;
-   this->startIDProduct = idP;
+   this->m_startIDClient = idC;
+   this->m_startIDOrder = idO;
 }
 
 Magasin::~Magasin() {
@@ -48,8 +48,45 @@ Produit *Magasin::getProduit(string nom) {
     return res;
 }
 
+Client* Magasin::getClient(int id) {
+    Client* res = nullptr;
+    for (Client* c : m_clients) {
+        if (c->getId() == id) {
+            res = c;
+        }
+    }
+    return res;
+}
+Client* Magasin::getClient(string prenom, string nom){
+    Client* res = nullptr;
+    for (Client* c : m_clients) {
+        if (c->getPrenom() == prenom && c->getNom() == nom) {
+            res = c;
+        }
+    }
+    return res;
+}
+
+Commande* Magasin::getCommande(int id){
+    Commande* res = nullptr;
+    for (Commande* c : m_commandes) {
+        if (c->getNumero() == id) {
+            res = c;
+        }
+    }
+    return res;
+}
+
 void Magasin::addProduit(Produit *p) {
     m_produits.push_back(p);
+}
+
+void Magasin::addClient(Client* c) {
+    m_clients.push_back(c);
+}
+
+void Magasin::addCommande(Commande* c) {
+    m_commandes.push_back(c);
 }
 
 void Magasin::displayProducts() {
@@ -167,10 +204,26 @@ void Magasin::setCommandeStatut(Commande* c, string statut) {
     }
 }
 
+void Magasin::displayCommande(int id) {
+    for (int i = 0; i < m_commandes.size(); ++i) {
+        if (m_commandes.at(i)->getNumero() == id) {
+            cout << *m_commandes.at(i) << endl;
+        }
+    }
+}
+
+void Magasin::displayCommandes() {
+    for (int i = 0; i < m_commandes.size(); ++i) {
+        cout << *m_commandes.at(i) << endl;
+    }
+}
+
 void Magasin::displayCommandesValidees() {
     cout << "LISTE DES COMMANDES VALIDEES" << endl;
     for (int i = 0; i < m_commandes.size(); ++i) {
-        cout << *m_commandes.at(i) << endl;
+        if (m_commandes.at(i)->getStatut() == "Validee"){
+            cout << *m_commandes.at(i) << endl;
+        }
     }
 }
 
@@ -198,6 +251,16 @@ void Magasin::displayCommandesClient(string prenom, string nom) {
             break;
         }
     }
+}
+
+int Magasin::generateClientID() {
+    m_startIDClient += 1;
+    return m_startIDClient;
+}
+
+int Magasin::generateOrderID() {
+    m_startIDOrder += 1;
+    return m_startIDOrder;
 }
 
 
