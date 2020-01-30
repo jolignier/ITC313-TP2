@@ -160,20 +160,24 @@ std::string ConsoleTable::getRows(Rows rows) const {
 
 
 std::ostream &operator<<(std::ostream &out, const ConsoleTable &consoleTable) {
-    out << consoleTable.getLine(consoleTable.style.top);
+
     if (!consoleTable.topLines.empty()) {
+        out << consoleTable.getLine(consoleTable.style.beforeTopLine);
         out << consoleTable.getTopLines(consoleTable.topLines);
-        out << consoleTable.getLine(consoleTable.style.topLine);
+    } else {
+        out << consoleTable.getLine(consoleTable.style.noTopLine);
     }
+    out << consoleTable.getLine(consoleTable.style.topLine);
     out << consoleTable.getHeaders(consoleTable.headers);
     out << consoleTable.getLine(consoleTable.style.middle);
     out << consoleTable.getRows(consoleTable.rows);
     if (!consoleTable.bottomLines.empty()){
         out << consoleTable.getLine(consoleTable.style.bottomLine);
         out << consoleTable.getTopLines(consoleTable.bottomLines);
+        out << consoleTable.getLine(consoleTable.style.afterBottomLine);
+    } else {
+        out << consoleTable.getLine(consoleTable.style.noBottomLine);
     }
-    out << consoleTable.getLine(consoleTable.style.bottom);
-
     return out;
 }
 

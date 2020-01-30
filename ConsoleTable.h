@@ -122,29 +122,30 @@ private:
     struct TableStyle {
         std::string horizontal;
         std::string vertical;
-        RowType top;
+        RowType noTopLine;
+        RowType beforeTopLine;
         RowType topLine;
         RowType middle;
+        RowType noBottomLine;
         RowType bottomLine;
-        RowType bottom;
+        RowType afterBottomLine;
     };
 
 
     /// Basic style - works on all systems, used as default style
-    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "+", "+"}, {"+", "+", "+"}};
+    TableStyle BasicStyle = {"-", "|", {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "-", "+"}, {"+", "+", "+"}, {"+", "+", "+"}, {"+", "-", "+"}};
 
 
     /// Single lined style - requires speecial character support
-    TableStyle LineStyle = {"━", "┃", {"┏", "━", "┓"}, {"┣", "┳", "┫"}, {"┣", "╋", "┫"}, {"┣", "┻", "┫"}, {"┗", "━", "┛"}};
+    TableStyle LineStyle = {"━", "┃", {"┏", "┳", "┓"}, {"┏", "━", "┓"}, {"┣", "┳", "┫"}, {"┣", "╋", "┫"}, {"┗", "┻", "┛"}, {"┣", "┻", "┫"}, {"┗", "━", "┛"}};
 
 
     /// Single double style - requires speecial character support
-    TableStyle DoubleLineStyle = {"═", "║", {"╔", "═", "╗"}, {"╠", "╦", "╣"}, {"╠", "╬", "╣"}, {"╠", "╩", "╣"}, {"╚", "═", "╝"}};
+    TableStyle DoubleLineStyle = {"═", "║", {"╔", "╦", "╗"}, {"╔", "═", "╗"}, {"╠", "╦", "╣"}, {"╠", "╬", "╣"}, {"╚", "╩", "╝"}, {"╠", "╩", "╣"}, {"╚", "═", "╝"}};
 
 
     /// No visible table outlines - works on all systems
-    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
-
+    TableStyle InvisibleStyle = {" ", " ", {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}, {" ", " ", " "}};
 
     /// Current table style
     TableStyle style = BasicStyle;
