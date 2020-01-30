@@ -127,10 +127,8 @@ int getInput(){
 }
 
 void press_to_continue() {
-    cin.clear();
     cout << ANSI_GREEN << "Appuyer sur une touche pour continuer ..." << ANSI_RESET << endl;
-    //cin.get();
-    system("pause");
+    system("read var");
 }
 
 int main(){
