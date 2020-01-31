@@ -154,7 +154,7 @@ void to_be_implemented_next() {
 
 void init_shop_with_dummy_values(Magasin* shop){
     Produit* p3 = new Produit("Xbox One", "Console de jeu Microsoft", 15, 179.99);
-    Produit* p = new Produit("PS4 ", "Console de jeu Sony", 10, 249.99);
+    Produit* p = new Produit("PS4", "Console de jeu Sony", 10, 249.99);
     Produit* p2 = new Produit("Switch", "Console de jeu Nintendo", 20, 299.99);
 
     shop->addProduit(p);
